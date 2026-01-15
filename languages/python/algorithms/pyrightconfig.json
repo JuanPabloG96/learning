@@ -1,0 +1,25 @@
+{
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "**/node_modules",
+    "**/__pycache__",
+    "env",
+    ".venv"
+  ],
+  "venvPath": ".",
+  "venv": ".venv",
+  "executionEnvironments": [
+    {
+      "root": "src",
+      "pythonVersion": "3.14",
+      "extraPaths": [
+        "./lib",
+        "./external_modules"
+      ]
+    }
+  ],
+  "reportMissingImports": true,
+  "typeCheckingMode": "basic"
+}
