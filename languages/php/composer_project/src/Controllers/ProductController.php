@@ -65,7 +65,7 @@ class ProductController {
     $this->product->setStock($input["stock"]);
 
     if ($this->product->update()) {
-      http_response_code(201);
+      http_response_code(202);
       return json_encode(["message" => "product updated succesfully"], JSON_PRETTY_PRINT);
     } else {
       http_response_code(500);
@@ -80,7 +80,7 @@ class ProductController {
     }
 
     if ($this->product->delete($id)) {
-      http_response_code(201);
+      http_response_code(202);
       return json_encode(["message" => "product deleted succesfully"], JSON_PRETTY_PRINT);
     } else {
       http_response_code(500);
