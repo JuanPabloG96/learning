@@ -87,4 +87,11 @@ class ProductController {
       return json_encode(["error" => "error during product elimination"], JSON_PRETTY_PRINT);
     }
   }
+  public function stats() {
+    $products = $this->product->readAll();
+    $total_products = count($products);
+
+    http_response_code(200);
+    return json_encode(["total_products" => $total_products], JSON_PRETTY_PRINT);
+  }
 }

@@ -4,18 +4,9 @@ require __DIR__ . '/../vendor/autoload.php';
 use App\Config\Database;
 use App\Controllers\ProductController;
 use App\Core\Router;
+use App\Middleware\JsonMiddleware;
+use App\Middleware\LogMiddleware;
 use Dotenv\Dotenv;
-
-header('Content-Type: application/json');
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
-header('Access-Control-Allow-Headers: Content-Type');
-
-// Manejar preflight requests
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-  http_response_code(200);
-  exit();
-}
 
 $dotenv = Dotenv::createImmutable(__DIR__ . '/..');
 $dotenv->load();
@@ -26,6 +17,11 @@ $conn = $db->getConnection();
 $productController = new ProductController($conn);
 $router = new Router();
 
+// Agregar middlewares
+$router->addMiddleware(new JsonMiddleware());
+$router->addMiddleware(new LogMiddleware());
+
 require __DIR__ . '/../src/Routes/api.php';
+require __DIR__ . '/../src/Routes/protected.php';
 
 echo $router->resolve();
