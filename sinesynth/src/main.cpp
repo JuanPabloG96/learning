@@ -16,7 +16,6 @@ int main() {
     float frecuencia;
   };
 
-  // Mapeo completo solicitado
   std::vector<Nota> tablaNotas = {
       {"do7", 4186.01},  {"si6", 3951.07},   {"la#6", 3729.31},
       {"la6", 3520.00},  {"sol#6", 3322.44}, {"sol6", 3135.96},
