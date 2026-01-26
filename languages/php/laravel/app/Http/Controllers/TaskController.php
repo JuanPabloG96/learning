@@ -17,6 +17,7 @@ class TaskController extends Controller {
             'title' => 'required|string|max:50',
             'description' => 'nullable|string|max:255',
             'is_completed' => 'required|boolean',
+            'user_id' => 'required|integer|exists:users,id',
         ]);
         $task = Task::create($validated);
         return response()->json($task, 201);
@@ -30,6 +31,7 @@ class TaskController extends Controller {
             'title' => 'string|max:50',
             'description' => 'nullable|string|max:255',
             'is_completed' => 'boolean',
+            'user_id' => 'integer|exists:users,id',
         ]);
         $task = Task::findOrFail($id);
         $task->update($validated);
