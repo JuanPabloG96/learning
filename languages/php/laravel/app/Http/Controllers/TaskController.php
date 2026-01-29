@@ -4,11 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Resources\TaskResource;
-use App\Models\Task;
 
 class TaskController extends Controller {
-    public function index() {
-        $tasks = Task::all();
+    public function index(Request $request) {
+        $tasks = $request->user()->tasks;
         return TaskResource::collection($tasks);
     }
 
@@ -17,13 +16,12 @@ class TaskController extends Controller {
             'title' => 'required|string|max:50',
             'description' => 'nullable|string|max:255',
             'is_completed' => 'required|boolean',
-            'user_id' => 'required|integer|exists:users,id',
         ]);
-        $task = Task::create($validated);
+        $task = $request->user()->tasks()->create($validated);
         return response()->json($task, 201);
     }
-    public function show($id) {
-        $task = Task::findOrFail($id);
+    public function show(Request $request, $id) {
+        $task = $request->user()->tasks()->findOrFail($id);
         return new TaskResource($task);
     }
     public function update(Request $request, $id) {
@@ -31,15 +29,14 @@ class TaskController extends Controller {
             'title' => 'string|max:50',
             'description' => 'nullable|string|max:255',
             'is_completed' => 'boolean',
-            'user_id' => 'integer|exists:users,id',
         ]);
-        $task = Task::findOrFail($id);
+        $task = $request->user()->tasks()->findOrFail($id);
         $task->update($validated);
 
         return response()->json($task, 200);
     }
-    public function destroy($id) {
-        $task = Task::findOrFail($id);
+    public function destroy(Request $request, $id) {
+        $task = $request->user()->tasks()->findOrFail($id);
         $task->delete();
         return response()->json(null, 204);
     }
