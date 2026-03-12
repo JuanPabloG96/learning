@@ -1,12 +1,13 @@
-# data libraries
-import numpy as np 
-import pandas as pd 
+import numpy as np
 
-# machine learning libraries
-import keras
+entradas = np.array([2.0, 1.5, 1.2])
+pesos = np.array([0.7, 0.2, -1.0])
 
-dataset_path = "./datasets/chicago_taxi_train.csv"
+res = 0
 
-chicago_taxi_dataset = pd.read_csv(dataset_path)
+for i in range(len(entradas)):
+    res += entradas[i] * pesos[i]
 
-print(chicago_taxi_dataset.head())
+print(res, np.dot(entradas, pesos))
+
+
