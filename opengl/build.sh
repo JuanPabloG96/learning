@@ -1,6 +1,8 @@
 #!/bin/bash
 
 # Limpiar build anterior (opcional)
+mkdir -p build
+mkdir -p bin
 rm -rf build/*
 
 cd build
@@ -9,14 +11,8 @@ cd build
 cmake ..
 
 # Compilar con bear para generar compile_commands.json
-bear -- make -j$(nproc)
+bear -- make
 
 cd ..
 
 echo "✓ Compilación completada"
-echo "✓ compile_commands.json generado"
-echo "Ejecutable en: ./bin/main"
-
-# abrir el archivo de compilación
-./bin/main
-
